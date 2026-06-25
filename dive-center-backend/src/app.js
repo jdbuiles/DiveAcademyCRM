@@ -31,3 +31,20 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor ejecutándose en el puerto ${PORT}`);
 });
+// ... (Tus otras importaciones de Express, CORS, Clientes y Viajes)
+const transaccionRoutes = require('./routes/transaccionRoutes');
+
+const app = express();
+
+app.use(express.json());
+// ...
+
+// Rutas existentes
+app.use('/api/clientes', require('./routes/clienteRoutes'));
+app.use('/api/viajes', require('./routes/viajeRoutes'));
+
+// Nueva Ruta del Motor Financiero
+app.use('/api/transacciones', transaccionRoutes);
+
+// ... Middleware de errores (Debe ir siempre al final)
+app.use(require('./middleware/errorHandler'));
