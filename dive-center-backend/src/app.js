@@ -65,3 +65,28 @@ app.use('/api/dashboard', dashboardRoutes);
 
 // Manejo de errores global
 app.use(require('./middleware/errorHandler'));
+
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+//const app = express();
+//app.use(cors());
+//app.use(express.json());
+
+// Ruta Pública de Autenticación
+app.use('/api/auth', require('./routes/authRoutes'));
+
+// Rutas Protegidas por JWT y Roles (El middleware interno de cada una se encarga)
+app.use('/api/clientes', require('./routes/clienteRoutes'));
+app.use('/api/viajes', require('./routes/viajeRoutes'));
+app.use('/api/transacciones', require('./routes/transaccionRoutes'));
+app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+
+// Control de errores global
+app.use(require('./middleware/errorHandler'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Servidor protegido corriendo en puerto ${PORT}`));
+
+
