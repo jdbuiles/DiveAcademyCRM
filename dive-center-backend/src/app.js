@@ -48,3 +48,20 @@ app.use('/api/transacciones', transaccionRoutes);
 
 // ... Middleware de errores (Debe ir siempre al final)
 app.use(require('./middleware/errorHandler'));
+
+// ... (Otras importaciones previas)
+const dashboardRoutes = require('./routes/dashboardRoutes');
+
+const app = express();
+app.use(express.json());
+
+// Montaje de Endpoints anteriores
+app.use('/api/clientes', require('./routes/clienteRoutes'));
+app.use('/api/viajes', require('./routes/viajeRoutes'));
+app.use('/api/transacciones', require('./routes/transaccionRoutes'));
+
+// Registro del Endpoint del Dashboard Financiero
+app.use('/api/dashboard', dashboardRoutes);
+
+// Manejo de errores global
+app.use(require('./middleware/errorHandler'));
